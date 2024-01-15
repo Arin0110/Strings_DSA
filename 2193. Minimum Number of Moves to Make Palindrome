@@ -1,0 +1,37 @@
+
+/* Link to the problem: https://leetcode.com/problems/minimum-number-of-moves-to-make-palindrome/description/  */
+
+/* CONCEPT USED: Greedy,2 pointers */
+class Solution {
+public:
+
+    //Do the dry run
+    int minMovesToMakePalindrome(string s) {
+       
+        int lt=0;
+        int rt=s.length()-1;
+        int ans=0;
+        while(lt<rt){
+
+            int l=lt,r=rt;
+            while(s[l]!=s[r])r--;
+            if(l==r){
+                //When we find the odd element
+               
+                swap(s[r],s[r+1]);
+                ans++;
+                continue;
+            }
+            else{
+                while(r<rt){
+                    swap(s[r],s[r+1]),ans++,r++;
+
+                }
+            }
+            lt++;
+            rt--;
+        }
+
+        return ans;
+    }
+};
