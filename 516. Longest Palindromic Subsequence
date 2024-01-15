@@ -1,0 +1,53 @@
+
+/*  https://leetcode.com/problems/longest-palindromic-subsequence/description/  */
+
+/* Concept used : Dynamic Programming */
+
+
+class Solution {
+public:
+ 
+   
+//  int helper(string s,string s1,int i,int j,vector<vector<int>>&dp){
+//         if(i==0 || j==0){
+//             return 0;
+//         }
+//         if(dp[i][j]!=-1){
+//             return dp[i][j];
+//         }
+//         if(s[i-1]==s1[j-1]){
+//            return dp[i][j]=1+ helper(s,s1,i-1,j-1,dp);
+//         }
+        
+//         return dp[i][j]=max(helper(s,s1,i-1,j,dp),helper(s,s1,i,j-1,dp));
+        
+
+//     }
+    int longestPalindromeSubseq(string s) {
+       
+         int n=s.size(),m=s.size();
+         vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+        
+        string s1=s;
+     
+       reverse(s1.begin(),s1.end());
+       for(int j=0;j<m;j++){
+           dp[0][j]=0;
+       }
+       for(int i=0;i<m;i++){
+           dp[i][0]=0;
+       }
+       for(int i=1;i<=m;i++){
+           for(int j=1;j<=m;j++){
+               if(s[i-1]==s1[j-1]){
+                    dp[i][j]=1+ dp[i-1][j-1];
+                }
+                else{
+                    dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+                }
+           }
+       }
+        // return helper(s,s1,n,m,dp);
+        return dp[n][m];
+    }
+};
